@@ -1,14 +1,15 @@
 import React from 'react'
-import "./Navbar.css"
+import "../css/Navbar.css";
+import {NavLink} from "react-router-dom" 
 
 const Navbar = () =>{
     return (
-        <div className='nav'>
-      <nav className="navbar navbar-expand-lg">
+       
+      <nav className="navbar navbar-expand-lg sticky-top">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+
             <b>SHOP BUDDY</b>
-          </a>
+
           <button
             className="navbar-toggler"
             type="button"
@@ -22,17 +23,24 @@ const Navbar = () =>{
           </button>
           
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  Home
-                </a>
+                <NavLink  className='nav-link'  to="/">Home</NavLink>
               </li>
+
+              <li className="nav-item">
+                <NavLink  className='nav-link' to="/signup">Signup</NavLink>
+              </li>
+
+              <li className="nav-item">
+                <NavLink  className='nav-link' to="/signin">Signin</NavLink>
+              </li>
+
             </ul>
           </div>
         </div>
       </nav>
-    </div>
+   
     );
 }
 

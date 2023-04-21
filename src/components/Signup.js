@@ -1,8 +1,11 @@
 import React from "react";
-import "./signup.css";
+import "../css/signup.css";
+import Navbar from "./Navbar";
 
 const Signup = () => {
   return (
+    <>
+    <Navbar />
     <div className="signup">
       <div className="mb-3">
         <label for="Full name" className="form-label">
@@ -56,6 +59,7 @@ const Signup = () => {
     <button type="submit" className="btn btn-primary mb-3">Sign up</button>
   </div>
     </div>
+    </>
   );
 };
 

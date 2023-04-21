@@ -1,8 +1,11 @@
 import React from "react";
-import "./Home.css"
+import "../css/Home.css"
+import Navbar from "./Navbar";
 
 const Home = () => {
   return (
+    <>
+    <Navbar />
     <div className="content">
       <form className="row g-3" action="">
         <div className="col-auto">
@@ -24,6 +27,7 @@ const Home = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 
