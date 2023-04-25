@@ -1,6 +1,8 @@
 import React from "react";
 import "../css/Home.css"
 import Navbar from "./Navbar";
+import shopping from "../assets/shopping.gif"
+
 import { useHistory } from "react-router-dom";
 
 const Home = () => {
@@ -55,28 +57,31 @@ const Home = () => {
   return (
     <>
     <Navbar />
-    <div className="content">
-      <form className="row g-3">
-        <div className="col-auto">
-          <label for="inputSearch" className="visually-hidden">
-            Search here
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="inputSearch"
-            name="searchString"
-            placeholder="Search here"
-          />
+
+    <div className="row">
+       <div className="col-lg-1"></div>
+        <div className="col-lg-4 h-100 align-self-center">
+          
+          <img className="img-fluid ml-5" src={shopping} alt="gif"/>
+        
         </div>
         
-        <div className="col-auto">
-          <button type="submit" className="btn btn-primary mb-3" onClick={(e)=>{onSubmitFunc(e)}}>
-            Search
-          </button>
+        <div className="col-lg-2"></div>
+        <div className="col-lg-5 h-100 align-self-center">
+           
+           <form>
+              <div className="form-row"> 
+                   <div className="col">
+                       <input type="text" className="form-control" style={{"minHeight":"50px",width:"300px",margin:"0px"}} id="inputSearch" name="searchString"
+                        placeholder="search here" required />
+                        <button  className="btn btn-primary content" style={{"minHeight":"50px"}} onClick={(e)=>{onSubmitFunc(e)}}>🔍</button>
+                   </div>
+              </div>
+           </form>
         </div>
-      </form>
+        
     </div>
+    
     </>
   );
 };

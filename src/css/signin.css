@@ -1,4 +1,4 @@
-.signin {
+/* .signin {
   position: absolute;
   left: 50%;
   top: 40%;
@@ -8,4 +8,20 @@
 
 button{
   justify-content: center;
+} */
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
 }

@@ -5,8 +5,8 @@ import {NavLink} from "react-router-dom"
 const Navbar = () =>{
     return (
        
-      <nav className="navbar navbar-expand-lg sticky-top">
-        <div className="container-fluid">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div className="container-fluid text-white">
 
             <b>SHOP BUDDY</b>
 

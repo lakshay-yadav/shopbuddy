@@ -1,9 +1,9 @@
 import React from "react";
-import "../css/signup.css";
+import "../css/signin.css";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import {useHistory} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 
 const Signup = () => {
 
@@ -37,10 +37,11 @@ const Signup = () => {
     })
 
     const data = await response.json()
-
-    // console.log(data)
-
-    if(data.status==="OK")
+  
+    // console.log("this is me")
+    // console.log(data.status==="Ok")
+    
+    if(data.status==="Ok")
     {
          toast.success("signup Successfull")
          toast.info("signin to continue")
@@ -58,71 +59,59 @@ const Signup = () => {
   return (
     <>
     <Navbar />
-    <div className="signup">
-      <div className="mb-3">
-        <label for="Full name" className="form-label">
-          Full Name
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="fullName"
-          placeholder="Full name"
-          name="name"
-          onChange={(e)=>{handleChange(e,"name")}}
-          required
-        />
+    <section className="vh-100">
+  <div className="container-fluid h-custom">
+    <div className="row d-flex justify-content-center align-items-center h-100">
+      <div className="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          className="img-fluid" alt="Sample" />
       </div>
-      <div className="mb-3">
-        <label for="Email" className="form-label">
-          Email address
-        </label>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          placeholder="name@example.com"
-          name="email"
-          onChange={(e)=>{handleChange(e,"email")}}
-          required
-        />
+      <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form>
+
+        <div className="form-outline mt-5 mb-3">
+          <label className="form-label" for="name">Full Name</label>
+            <input type="text" id="fullName" name="name" onChange={(e)=>{handleChange(e,"name")}} className="form-control form-control-lg"
+              placeholder="Enter full name" />
+          
+          </div>
+         
+          <div className="form-outline mb-3">
+          <label className="form-label" for="email">Email address</label>
+            <input type="email" id="email" name="email" onChange={(e)=>{handleChange(e,"email")}} className="form-control form-control-lg"
+              placeholder="Enter a valid email address" />
+          
+          </div>
+
+          <div className="form-outline mb-3">
+          <label className="form-label" for="password">Password</label>
+            <input type="password" id="password" name="password" onChange={(e)=>{handleChange(e,"password")}} className="form-control form-control-lg"
+              placeholder="Enter password" />
+           
+          </div>
+
+          <div className="form-outline mb-3">
+          <label className="form-label" for="password">Confirm Password</label>
+            <input type="password" id="confirmpassword" name="confirmpassword" onChange={(e)=>{handleChange(e,"confirmpassword")}} className="form-control form-control-lg"
+              placeholder="Enter password" />
+           
+          </div>
+
+          
+
+          <div className="text-center text-lg-start mt-4 pt-2">
+            <button type="button" className="btn btn-primary btn-lg"
+              style = {{"padding-left": "2.5rem", "padding-right": "2.5rem"}} onClick={(e)=>{onSubmitFunc(e)}} disabled = {password!==confirmpassword}>Register</button>
+            <p className="small fw-bold mt-2 pt-1 mb-0">Already have an account? <NavLink to="/signin"
+                className="link-danger">Sign in</NavLink></p>
+          </div>
+
+        </form>
       </div>
-      <div className="mb-3">
-        <label for="password" className="form-label">
-          Password
-        </label>
-        <input
-          type="password"
-          className="form-control"
-          id="password"
-          placeholder="Password"
-          name="password"
-          onChange={(e)=>{handleChange(e,"password")}}
-          required
-        />
-      </div>
-      <div className="mb-3">
-        <label for="Confirmpassword" className="form-label">
-          Confirm Password
-        </label>
-        <input
-          type="password"
-          className="form-control"
-          id="confirmpassword"
-          placeholder="Confirm password"
-          name="confirmpassword"
-          onChange={(e)=>{handleChange(e,"confirmpassword")}}
-          required
-        />
-      </div>
-      <div>
-    <button type="submit"
-      className="btn btn-primary mb-3"
-      onClick={(e)=>{onSubmitFunc(e)}}
-      disabled = {password!==confirmpassword}
-    >SignUp</button>
-  </div>
     </div>
+  </div>
+ 
+</section>
     </>
   );
 };
