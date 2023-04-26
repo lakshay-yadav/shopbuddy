@@ -8,9 +8,11 @@ import StarRating from './StarRating'
 import Reviews from './Reviews'
 const Results = () => {
 
+ const [input,setInput] = useState("")
  const [data,setData] = useState([])
  const [images,setImages] = useState([])
  const [ratings,setRatings] = useState(null)
+ const [user,setUser] = useState(null)
 
  const history = useHistory()
 
@@ -19,15 +21,34 @@ const Results = () => {
   useEffect(()=>{
       let x = JSON.parse(localStorage.getItem("result"))
       setData(x)
-      
+      setInput(localStorage.getItem("input"))
+      let user = JSON.parse(localStorage.getItem("user"))
       let arr = JSON.parse(localStorage.getItem("category"))
       arr = arr[1]
       setRatings(arr)
+      setUser(user)
       setImages(JSON.parse(localStorage.getItem('images')))
   },[])
 
-  console.log("############")
-  console.log(ratings)
+ 
+   const onSubmitFunc = async(event)=>{
+
+      const input = localStorage.getItem("input")
+      const email = JSON.parse(localStorage.getItem("user")).email
+      const response = await fetch(`http://127.0.0.1:5000/addtowishlist`,{
+        method:"POST", headers: {
+          Accept: "application/json",
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({searchString:input,email:email})
+      })
+
+      const data = await response.json()
+      
+      console.log("data is here")
+      console.log(data)
+      localStorage.setItem("user",JSON.stringify(data))
+   }
 
   return (
     <>
@@ -73,7 +94,15 @@ const Results = () => {
         images.length>0 && (
           <> 
           <button className='btn btn-success'><a href={images[0].link} target='_blank' style={{color:'white',textDecoration:'none'}}>Buy Now</a></button>
-            <button className='btn btn-danger ml-2'>Add to wishlist</button>
+          {user.wishlist!=="undefined" && user.wishlist.includes(input)===true && (
+            <button className='btn btn-secondary ml-2'>Wishlisted</button> 
+          )}
+          {
+           user!=null && user.wishlist!=="undefined" && user.wishlist.includes(input)===false && (
+             <button className='btn btn-danger ml-2' onClick={(e)=>{onSubmitFunc(e)}}
+              
+            >Add to wishlist</button>)
+          }
             </>
             )
         }

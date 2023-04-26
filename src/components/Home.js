@@ -41,7 +41,6 @@ const Home = () => {
     
     let data2 = await response2.json()
     data2 = data2.slice(0,5)
-    // console.log(data2)
 
 
     if(data.length>0)

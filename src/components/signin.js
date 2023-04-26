@@ -32,9 +32,9 @@ const Signin = () => {
 
       const data = await response.json()
 
-      if(data.status==="OK")
+      if(data.email)
       {
-      
+        localStorage.setItem("user",JSON.stringify(data))
         toast.success("signin Successfull")
         history.push('/profile')
         return
