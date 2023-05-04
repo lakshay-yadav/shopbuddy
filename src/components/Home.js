@@ -1,24 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/Home.css"
 import Navbar from "./Navbar";
 import shopping from "../assets/shopping.gif"
 
+
 import { useHistory } from "react-router-dom";
+import WaitingLoader from "./WaitingLoader";
+import { API } from "./Backend";
 
 const Home = () => {
+
+   const [loading,setLoading] = useState(false)
 
    const history = useHistory()
 
   const onSubmitFunc = async(event)=>{
    
     event.preventDefault()
+    setLoading(true)
     const input = document.getElementById('inputSearch').value
     document.getElementById('inputSearch').value = ''
     // console.log(input)
 
     localStorage.setItem("input",input)
 
-   const response = await fetch(`http://127.0.0.1:5000/website`,{
+   const response = await fetch(`${API}/website`,{
      method:'POST',
      headers: {
       Accept: "application/json",
@@ -30,7 +36,7 @@ const Home = () => {
    const data = await response.json()
   //  console.log(data)
     
-    const response2 = await fetch(`http://127.0.0.1:5000/flipkart`,{
+    const response2 = await fetch(`${API}/flipkart`,{
       method:'POST',
      headers: {
       Accept: "application/json",
@@ -51,12 +57,13 @@ const Home = () => {
        return 
     }
    
+     setLoading(false)
   }
 
   return (
     <>
     <Navbar />
-
+    
     <div className="row">
        <div className="col-lg-1"></div>
         <div className="col-lg-4 h-100 align-self-center">
@@ -65,7 +72,9 @@ const Home = () => {
         
         </div>
         
-        <div className="col-lg-2"></div>
+        <div className="col-lg-2">
+        {loading && <WaitingLoader />}
+        </div>
         <div className="col-lg-5 h-100 align-self-center">
            
            <form>
@@ -73,7 +82,7 @@ const Home = () => {
                    <div className="col">
                        <input type="text" className="form-control" style={{"minHeight":"50px",width:"300px",margin:"0px"}} id="inputSearch" name="searchString"
                         placeholder="search here" required />
-                        <button  className="btn btn-primary content" style={{"minHeight":"50px"}} onClick={(e)=>{onSubmitFunc(e)}}>🔍</button>
+                        <button  className="btn btn-primary content" disabled={loading} style={{"minHeight":"50px"}} onClick={(e)=>{onSubmitFunc(e)}}>🔍</button>
                    </div>
               </div>
            </form>

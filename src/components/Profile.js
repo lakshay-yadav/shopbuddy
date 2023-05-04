@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import avatar from '../assets/avatar.png'
 import { useHistory } from 'react-router-dom'
+import { API } from './Backend'
 
 const Profile = () => {
     
@@ -21,7 +22,7 @@ const Profile = () => {
 
       localStorage.setItem("input",input)
 
-      const response = await fetch(`http://127.0.0.1:5000/website`,{
+      const response = await fetch(`${API}/website`,{
      method:'POST',
      headers: {
       Accept: "application/json",
@@ -32,7 +33,7 @@ const Profile = () => {
 
     const data = await response.json()
 
-    const response2 = await fetch(`http://127.0.0.1:5000/flipkart`,{
+    const response2 = await fetch(`${API}/flipkart`,{
       method:'POST',
      headers: {
       Accept: "application/json",

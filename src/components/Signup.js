@@ -4,6 +4,8 @@ import Navbar from "./Navbar";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import {NavLink, useHistory} from "react-router-dom";
+import WaitingLoader from "./WaitingLoader";
+import { API } from "./Backend";
 
 const Signup = () => {
 
@@ -13,7 +15,7 @@ const Signup = () => {
      password:"",
      confirmpassword : ""
   })
-
+  const [loading,setLoading] = useState(false)
   const history = useHistory()
 
   const {name,email,password,confirmpassword} = values
@@ -26,8 +28,8 @@ const Signup = () => {
   const onSubmitFunc = async(event)=>{
     
     event.preventDefault()
-
-    const response = await fetch(`http://127.0.0.1:5000/signup`,{
+    setLoading(true)
+    const response = await fetch(`${API}/signup`,{
       method:'POST',
       headers: {
        Accept: "application/json",
@@ -49,6 +51,7 @@ const Signup = () => {
          return 
     }
     
+      setLoading(false)
       return toast.error(data.status)
 
     // console.log(data.status)
@@ -66,6 +69,7 @@ const Signup = () => {
         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
           className="img-fluid" alt="Sample" />
       </div>
+      {loading && <WaitingLoader />}
       <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
         <form>
 
@@ -101,7 +105,7 @@ const Signup = () => {
 
           <div className="text-center text-lg-start mt-4 pt-2">
             <button type="button" className="btn btn-primary btn-lg"
-              style = {{"padding-left": "2.5rem", "padding-right": "2.5rem"}} onClick={(e)=>{onSubmitFunc(e)}} disabled = {password!==confirmpassword}>Register</button>
+              style = {{"padding-left": "2.5rem", "padding-right": "2.5rem"}} onClick={(e)=>{onSubmitFunc(e)}} disabled = {password!==confirmpassword || loading}>Register</button>
             <p className="small fw-bold mt-2 pt-1 mb-0">Already have an account? <NavLink to="/signin"
                 className="link-danger">Sign in</NavLink></p>
           </div>

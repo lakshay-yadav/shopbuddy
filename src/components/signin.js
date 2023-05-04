@@ -3,11 +3,15 @@ import Navbar from './Navbar';
 import '../css/signin.css'
 import { toast } from 'react-toastify';
 import {NavLink, useHistory} from 'react-router-dom';
-
+import WaitingLoader from './WaitingLoader';
+import { API } from './Backend';
 const Signin = () => {
   
+  // console.log(process.env.REACT_APP_BACKEND)
   const history = useHistory();
   
+  const [loading,setLoading] = useState(false)
+
   const [values,setValues] = useState({
     email:"",
     password:"",
@@ -20,8 +24,8 @@ const Signin = () => {
   const onSubmitFunc = async(event)=>{
     
       event.preventDefault()
-
-      const response = await fetch(`http://127.0.0.1:5000/signin`,{
+      setLoading(true)
+      const response = await fetch(`${API}/signin`,{
         method:'POST',
         headers: {
          Accept: "application/json",
@@ -39,9 +43,9 @@ const Signin = () => {
         history.push('/profile')
         return
       }
+      setLoading(false)
         return toast.error(data.status)
 
-      
   }
   
  
@@ -57,6 +61,7 @@ const Signin = () => {
         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
           className="img-fluid" alt="Sample" />
       </div>
+      {loading && <WaitingLoader />}
       <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
         <form>
          
@@ -78,7 +83,7 @@ const Signin = () => {
 
           <div className="text-center text-lg-start mt-4 pt-2">
             <button type="button" className="btn btn-primary btn-lg"
-              style = {{"padding-left": "2.5rem", "padding-right": "2.5rem"}} onClick={(e)=>{onSubmitFunc(e)}}>Login</button>
+              style = {{"padding-left": "2.5rem", "padding-right": "2.5rem"}} onClick={(e)=>{onSubmitFunc(e)}} disabled={loading}>Login</button>
             <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <NavLink to="/signup"
                 className="link-danger">Register</NavLink></p>
           </div>
